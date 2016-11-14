@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_contact"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.danielacedo.introduccionadatos_ficheros.Ejercicio1.AddContact">
+
+    <TextView
+        android:text="Nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txv_ContactName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@id/txv_ContactName"
+        android:id="@+id/edt_ContactName" />
+
+    <TextView
+        android:text="Telefono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_ContactName"
+        android:id="@+id/txv_ContactTlf"
+         />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:layout_below="@id/txv_ContactTlf"
+        android:id="@+id/edt_ContactTlf"
+        />
+
+    <TextView
+        android:text="Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txv_ContactEmail"
+        android:layout_below="@+id/edt_ContactTlf"
+         />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/edt_ContactEmail"
+        android:layout_below="@id/txv_ContactEmail" />
+
+    <Button
+        android:text="Añadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_Add"
+        android:layout_below="@+id/edt_ContactEmail"
+        android:layout_alignRight="@+id/edt_ContactEmail"
+        android:layout_alignEnd="@+id/edt_ContactEmail"
+        android:layout_marginTop="55dp" />
+</RelativeLayout>

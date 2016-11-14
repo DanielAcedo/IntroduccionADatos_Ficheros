@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
 
         switch (v.getId()){
+            case R.id.btn_Ej1:
+                intent = new Intent(MainActivity.this, Ejercicio1Activity.class);
+                startActivity(intent);
+                break;
             case R.id.btn_Ej5:
                 intent = new Intent(MainActivity.this, Ejercicio5MainActivity.class);
                 startActivity(intent);
