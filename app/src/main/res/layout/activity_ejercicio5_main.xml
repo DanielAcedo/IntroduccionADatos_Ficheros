@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ejercicio5_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.danielacedo.introduccionadatos_ficheros.Ejercicio5MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txv_FilePath"
+        android:text="@string/txv_FilePath" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txv_FilePath"
+        android:orientation="horizontal"
+        android:id="@+id/lly_FilePath">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/edt_FilePath"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:id="@+id/btn_Download"
+            android:text="@string/btn_Download" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@id/lly_FilePath"
+        android:id="@+id/imv_image"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@id/imv_image"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:id="@+id/lly_GalleryNavigate">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_galleryDown"
+            android:text="@string/btn_GalleryDown" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/btn_galleryUp"
+            android:text="@string/btn_GalleryUp" />
+
+    </LinearLayout>
+</RelativeLayout>

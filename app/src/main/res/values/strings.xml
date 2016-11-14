@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">IntroduccionADatos_Ficheros</string>
+
+    <!-- Ejercicio 5-->
+    <string name="txv_FilePath">Ruta a fichero</string>
+    <string name="btn_Download">Descargar</string>
+    <string name="btn_GalleryDown">Abajo</string>
+    <string name="btn_GalleryUp">Arriba</string>
+</resources>
