@@ -38,17 +38,18 @@
         android:text="Ejercicio 5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:id="@+id/btn_Ej5" />
 
     <Button
         android:text="Ejercicio 6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button10" />
+        android:id="@+id/btn_Ej6" />
 
     <Button
         android:text="Ejercicio 7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_Ej8" />
+        android:id="@+id/btn_Ej7" />
 </LinearLayout>
