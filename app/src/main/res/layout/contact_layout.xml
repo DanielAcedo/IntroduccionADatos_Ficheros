@@ -2,34 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre"
         android:textSize="21sp"
         android:id="@+id/txv_contactlist_name"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Telefono"
         android:textSize="16sp"
-        android:gravity="right"
+        android:gravity="left"
         android:layout_below="@id/txv_contactlist_name"
         android:id="@+id/txv_contactlist_telephone"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
         android:textSize="16sp"
-        android:gravity="right"
+        android:gravity="left"
         android:layout_below="@id/txv_contactlist_telephone"
         android:id="@+id/txv_contactlist_email"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="X"
+        android:background="@android:color/holo_red_light"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/txv_contactlist_name"
+        android:layout_alignBottom="@id/txv_contactlist_email"
+        android:id="@+id/btn_RemoveContact"/>
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.danielacedo.introduccionadatos_ficheros.Ejercicio1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +10,14 @@ import android.widget.EditText;
 import com.danielacedo.introduccionadatos_ficheros.R;
 
 import java.util.List;
-import java.util.UUID;
 
 public class AddContact extends AppCompatActivity {
+
+    public static final int RESULT_CONTACT_ADDED = 2;
+    public static final String NEW_CONTACT_ID = "id";
+    public static final String NEW_CONTACT_NAME = "name";
+    public static final String NEW_CONTACT_TELEPHONE = "telephone";
+    public static final String NEW_CONTACT_EMAIL = "email";
 
     private EditText edt_ContactName, edt_ContactTelephone, edt_ContactEmail;
     private Button btn_Add;
@@ -40,8 +46,13 @@ public class AddContact extends AppCompatActivity {
                 }else{
                     newId = contacts.get(contacts.size()-1).getId()+1;
                 }
-                Contact contact = new Contact(newId, name, telephone, email);
-                ContactFile.saveContact(AddContact.this, contact);
+
+                Intent intent = new Intent();
+                intent.putExtra(NEW_CONTACT_ID, String.valueOf(newId));
+                intent.putExtra(NEW_CONTACT_NAME, name);
+                intent.putExtra(NEW_CONTACT_TELEPHONE, telephone);
+                intent.putExtra(NEW_CONTACT_EMAIL, email);
+                setResult(RESULT_CONTACT_ADDED, intent);
                 finish();
             }
         });
