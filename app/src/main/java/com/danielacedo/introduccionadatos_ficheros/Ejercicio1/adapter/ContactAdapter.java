@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.Contact;
@@ -41,7 +42,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             holder.txv_ContactName = (TextView)view.findViewById(R.id.txv_contactlist_name);
             holder.txv_ContactTelephone = (TextView)view.findViewById(R.id.txv_contactlist_telephone);
             holder.txv_ContactEmail = (TextView)view.findViewById(R.id.txv_contactlist_email);
-            holder.btn_RemoveContact = (Button) view.findViewById(R.id.btn_RemoveContact);
+            holder.btn_RemoveContact = (ImageButton) view.findViewById(R.id.btn_RemoveContact);
             holder.btn_RemoveContact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,7 +75,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
     static class ContactHolder{
         TextView txv_ContactName, txv_ContactTelephone, txv_ContactEmail;
-        Button btn_RemoveContact;
+        ImageButton btn_RemoveContact;
     }
 
     @Override
