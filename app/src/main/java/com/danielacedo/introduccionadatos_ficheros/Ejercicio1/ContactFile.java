@@ -152,7 +152,7 @@ public class ContactFile {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch(JSONException e){
-                json = resetJSONFile(context);
+                json = resetJSONFile(context); //Reformat the file
             }
 
         }else{
