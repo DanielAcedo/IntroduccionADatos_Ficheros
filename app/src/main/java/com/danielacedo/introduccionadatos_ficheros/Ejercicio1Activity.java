@@ -28,7 +28,7 @@ public class Ejercicio1Activity extends AppCompatActivity {
         btn_AddContact = (Button)findViewById(R.id.btn_AddContact);
         btn_AddContact.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {   //Open activity for adding contacts
                 Intent intent = new Intent(Ejercicio1Activity.this, AddContact.class);
                 startActivityForResult(intent, REQUEST_ADD_CONTACT);
             }

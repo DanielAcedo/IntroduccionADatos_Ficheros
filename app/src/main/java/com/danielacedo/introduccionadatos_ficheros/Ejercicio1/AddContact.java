@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.danielacedo.introduccionadatos_ficheros.R;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class AddContact extends AppCompatActivity {
 
@@ -39,22 +40,47 @@ public class AddContact extends AppCompatActivity {
                 String telephone = edt_ContactTelephone.getText().toString();
                 String email = edt_ContactEmail.getText().toString();
 
-                List<Contact> contacts = ContactFile.getContacts(AddContact.this);
-                int newId;
-                if(contacts.size()==0){
-                    newId=0;
-                }else{
-                    newId = contacts.get(contacts.size()-1).getId()+1;
-                }
+                if(checkFields(name, telephone)){
+                    List<Contact> contacts = ContactFile.getContacts(AddContact.this);
+                    int newId;
+                    //Get last id from list
+                    if(contacts.size()==0){
+                        newId=0;
+                    }else{
+                        newId = contacts.get(contacts.size()-1).getId()+1;
+                    }
 
-                Intent intent = new Intent();
-                intent.putExtra(NEW_CONTACT_ID, String.valueOf(newId));
-                intent.putExtra(NEW_CONTACT_NAME, name);
-                intent.putExtra(NEW_CONTACT_TELEPHONE, telephone);
-                intent.putExtra(NEW_CONTACT_EMAIL, email);
-                setResult(RESULT_CONTACT_ADDED, intent);
-                finish();
+                    //Return data to main activity
+                    Intent intent = new Intent();
+                    intent.putExtra(NEW_CONTACT_ID, String.valueOf(newId));
+                    intent.putExtra(NEW_CONTACT_NAME, name);
+                    intent.putExtra(NEW_CONTACT_TELEPHONE, telephone);
+                    intent.putExtra(NEW_CONTACT_EMAIL, email);
+                    setResult(RESULT_CONTACT_ADDED, intent);
+                    finish();
+                }
             }
         });
+    }
+
+    private boolean checkFields(String name, String telephone){
+        boolean result = true;
+
+        if(name.isEmpty()){
+            edt_ContactName.setError("El nombre no puede estar vacío");
+            result = false;
+        }
+
+        if(telephone.isEmpty()){
+            edt_ContactTelephone.setError("El nº de teléfono no puede estar vacío");
+            result = false;
+        }
+
+        if(!Pattern.matches("[0-9 ]*", telephone)){
+            edt_ContactTelephone.setError("Formato de teléfono no correcto");
+            result = false;
+        }
+
+        return result;
     }
 }
