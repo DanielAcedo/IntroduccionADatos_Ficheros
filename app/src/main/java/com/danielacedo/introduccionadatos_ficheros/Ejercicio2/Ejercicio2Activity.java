@@ -62,7 +62,7 @@ public class Ejercicio2Activity extends AppCompatActivity {
         lv_alarms.setAdapter(adapter);
 
 
-        btn_AddAlarm.setOnClickListener(new View.OnClickListener() {
+        btn_AddAlarm.setOnClickListener(new View.OnClickListener() { //Open activity for creating new alarm
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Ejercicio2Activity.this, AddAlarm.class);
@@ -80,6 +80,9 @@ public class Ejercicio2Activity extends AppCompatActivity {
 
     }
 
+    /**
+     * Create and starts an AlarmCounter, if there is any already running, it stops it first.
+     */
     private void initTimer(){
         if(adapter.getCount()!=0){
             if(alarmCounter!=null)
@@ -109,6 +112,11 @@ public class Ejercicio2Activity extends AppCompatActivity {
     }
 
 
+    /**
+     * Adds a new alawm to the adapter
+     * @param minutes Minutes that the alarm will be running for
+     * @param message Message displayed once finished
+     */
     private void saveAlarm(int minutes, String message){
         if(adapter.getCount() < 5){
             adapter.addAlarm(new Alarm(minutes, message));
@@ -117,6 +125,11 @@ public class Ejercicio2Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Launch push notification
+     * @param title Title of the notification
+     * @param content Content of the notification
+     */
     private void launchNotification(String title, String content){
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(Ejercicio2Activity.this).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(title).setContentText(content).setPriority(Notification.PRIORITY_HIGH).setDefaults(Notification.DEFAULT_VIBRATE);
         NotificationManager mNotificationManager =
@@ -157,9 +170,10 @@ public class Ejercicio2Activity extends AppCompatActivity {
         super.onResume();
     }
 
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_ADD_ALARM){
+        if(requestCode == REQUEST_ADD_ALARM){ //Added an alarm
             if (resultCode == AddAlarm.RESULT_ALARM_ADDED){
                 int minutes = data.getIntExtra(AddAlarm.NEW_ALARM_MINUTES, 1);
                 String mensaje = data.getStringExtra(AddAlarm.NEW_ALARM_MESSAGE);
