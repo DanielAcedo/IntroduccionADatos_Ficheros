@@ -1,4 +1,4 @@
-package com.danielacedo.introduccionadatos_ficheros;
+package com.danielacedo.introduccionadatos_ficheros.Ejercicio1;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.AddContact;
-import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.Contact;
-import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.ContactFile;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.adapter.ContactAdapter;
+import com.danielacedo.introduccionadatos_ficheros.R;
 
 public class Ejercicio1Activity extends AppCompatActivity {
 

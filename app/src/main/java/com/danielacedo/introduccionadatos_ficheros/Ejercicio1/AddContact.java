@@ -76,7 +76,7 @@ public class AddContact extends AppCompatActivity {
             result = false;
         }
 
-        if(!Pattern.matches("[0-9 ]*", telephone)){
+        if(!Pattern.matches("^([0-9]| )*", telephone)){
             edt_ContactTelephone.setError("Formato de teléfono no correcto");
             result = false;
         }

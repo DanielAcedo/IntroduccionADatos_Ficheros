@@ -1,4 +1,4 @@
-package com.danielacedo.introduccionadatos_ficheros;
+package com.danielacedo.introduccionadatos_ficheros.Ejercicio5;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.danielacedo.introduccionadatos_ficheros.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.util.TextUtils;
 
 public class Ejercicio5MainActivity extends AppCompatActivity {
 
