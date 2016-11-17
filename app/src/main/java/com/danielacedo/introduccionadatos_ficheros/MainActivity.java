@@ -8,6 +8,7 @@ import android.view.View;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.Ejercicio1Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio2.Ejercicio2Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio5.Ejercicio5MainActivity;
+import com.danielacedo.introduccionadatos_ficheros.Ejercicio7.Ejercicio7Activity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_Ej5:
                 intent = new Intent(MainActivity.this, Ejercicio5MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_Ej7:
+                intent = new Intent(MainActivity.this, Ejercicio7Activity.class);
                 startActivity(intent);
                 break;
         }

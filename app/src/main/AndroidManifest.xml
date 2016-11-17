@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,8 +22,9 @@
         <activity android:name=".Ejercicio5.Ejercicio5MainActivity" />
         <activity android:name=".Ejercicio1.Ejercicio1Activity" />
         <activity android:name=".Ejercicio1.AddContact" />
-        <activity android:name=".Ejercicio2.Ejercicio2Activity"></activity>
-        <activity android:name=".Ejercicio2.AddAlarm"></activity>
+        <activity android:name=".Ejercicio2.Ejercicio2Activity" />
+        <activity android:name=".Ejercicio2.AddAlarm" />
+        <activity android:name=".Ejercicio7.Ejercicio7Activity"></activity>
     </application>
 
 </manifest>
