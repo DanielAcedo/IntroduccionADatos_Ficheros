@@ -3,17 +3,21 @@ package com.danielacedo.introduccionadatos_ficheros.Ejercicio7;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.danielacedo.introduccionadatos_ficheros.R;
 import com.danielacedo.introduccionadatos_ficheros.RestClient;
@@ -21,34 +25,44 @@ import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.Permission;
-import java.security.Permissions;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Ejercicio7Activity extends AppCompatActivity implements View.OnClickListener {
+public class Ejercicio7Activity extends AppCompatActivity{
 
-    public final static String WEB = "https://192.168.3.61/datos/upload.php";
+    public final static String WEB = "http://192.168.1.132/datos/upload.php";
 
-    private EditText texto;
-    Button boton;
-    TextView informacion;
+    public static final int REQUEST_OPENFILE = 1;
+
+    private EditText txv_FileName;
+    Button btn_Upload, btn_OpenFile;
+    TextView txv_Information;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ejercicio7);
 
-        texto = (EditText)findViewById(R.id.texto);
-        boton = (Button)findViewById(R.id.button);
-        informacion = (TextView)findViewById(R.id.textView2);
-    }
+        txv_FileName = (EditText)findViewById(R.id.txv_FileName);
 
-    @Override
-    public void onClick(View v) {
-        subida();
+        btn_Upload = (Button)findViewById(R.id.btn_Upload);
+        btn_Upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subida();
+            }
+        });
+
+        btn_OpenFile = (Button)findViewById(R.id.btn_OpenFile);
+        btn_OpenFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileManager();
+            }
+        });
+
+        txv_Information = (TextView)findViewById(R.id.txv_info);
     }
 
     private void subida() {
@@ -60,12 +74,12 @@ public class Ejercicio7Activity extends AppCompatActivity implements View.OnClic
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
-        String fichero = texto.getText().toString();
+        String fichero = txv_FileName.getText().toString();
         final ProgressDialog progreso = new ProgressDialog(Ejercicio7Activity.this);
         File myFile;
         Boolean existe = true;
-        myFile = new File(Environment.getExternalStorageDirectory(), fichero);
-        //File myFile = new File("/path/to/file.png");
+        //myFile = new File(Environment.getExternalStorageDirectory(), fichero); //External
+        myFile = new File(fichero);
         RequestParams params = new RequestParams();
         params.put("secretKey","123");
 
@@ -76,7 +90,7 @@ public class Ejercicio7Activity extends AppCompatActivity implements View.OnClic
             params.put("fileToUpload", myFile);
         } catch (IOException e) {
             existe = false;
-            informacion.setText("Error en el fichero: " + e.getMessage());
+            txv_Information.setText("Error en el fichero: " + e.getMessage());
             //Toast.makeText(this, "Error en el fichero: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
@@ -100,15 +114,50 @@ public class Ejercicio7Activity extends AppCompatActivity implements View.OnClic
                 public void onSuccess(int statusCode, Header[] headers, String response) {
                     // called when response HTTP status is "200 OK"
                     progreso.dismiss();
-                    informacion.setText(response);
+                    txv_Information.setText(response);
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
                     // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                    informacion.setText(response);
+                    txv_Information.setText(response);
                     progreso.dismiss();
                 }
             });
     }
+
+    private void openFileManager(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("file/*");
+        startActivityForResult(intent, REQUEST_OPENFILE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == REQUEST_OPENFILE){
+            if(resultCode == RESULT_OK){
+                String fileName;
+
+                //If it's a media file we transform it to local path
+                if(data.getData().getPath().startsWith("/external")){
+                        fileName = getRealPathFromURI(data.getData());
+                }else{
+                    fileName = data.getData().getPath();
+                }
+
+                txv_FileName.setText(fileName);
+            }else{
+                Toast.makeText(Ejercicio7Activity.this, "No se pudo seleccionar el archivo", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx); }
 }

@@ -7,7 +7,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /**
- * Created by usuario on 17/11/16.
+ * Created by Daniel on 17/11/16.
  */
 
     public class RestClient {
