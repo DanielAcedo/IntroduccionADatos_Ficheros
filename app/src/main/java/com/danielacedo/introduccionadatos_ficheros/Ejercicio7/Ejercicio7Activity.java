@@ -67,6 +67,7 @@ public class Ejercicio7Activity extends AppCompatActivity implements View.OnClic
         myFile = new File(Environment.getExternalStorageDirectory(), fichero);
         //File myFile = new File("/path/to/file.png");
         RequestParams params = new RequestParams();
+        params.put("secretKey","123");
 
         try {
             //If the file doesn't exist, create one
