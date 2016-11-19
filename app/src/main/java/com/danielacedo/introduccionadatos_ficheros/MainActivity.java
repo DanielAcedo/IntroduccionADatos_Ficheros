@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio1.Ejercicio1Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio2.Ejercicio2Activity;
+import com.danielacedo.introduccionadatos_ficheros.Ejercicio4.Ejercicio4Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio5.Ejercicio5MainActivity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio7.Ejercicio7Activity;
 
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_Ej2:
                 intent = new Intent(MainActivity.this, Ejercicio2Activity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_Ej4:
+                intent = new Intent(MainActivity.this, Ejercicio4Activity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_Ej5:
