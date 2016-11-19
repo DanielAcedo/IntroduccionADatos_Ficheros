@@ -60,7 +60,9 @@ public class Ejercicio5MainActivity extends AppCompatActivity {
         btn_Download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                download();
+                if(checkPath()){
+                    download();
+                }
             }
         });
 
@@ -104,9 +106,23 @@ public class Ejercicio5MainActivity extends AppCompatActivity {
         catch(IllegalArgumentException ex){
             Toast.makeText(Ejercicio5MainActivity.this, "La galeria no está correctamente formateada", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private boolean checkPath(){
+        boolean ok = true;
+
+        if(edt_FilePath.getText().toString().isEmpty()){
+            Toast.makeText(Ejercicio5MainActivity.this, "Dirección vacía", Toast.LENGTH_SHORT).show();
+            ok = false;
+        }
+
+        return ok;
     }
 
     private void download(){
+
+
         if(!edt_FilePath.getText().toString().startsWith("http://")){
             String text = "http://"+edt_FilePath.getText().toString();
             edt_FilePath.setText(text);

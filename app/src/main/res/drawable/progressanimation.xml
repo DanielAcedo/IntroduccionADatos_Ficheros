@@ -4,5 +4,5 @@
     android:pivotX="50%"
     android:pivotY="50%"
     android:fromDegrees="0"
-    android:toDegrees="2160"
+    android:toDegrees="360"
     android:repeatCount="infinite"/>
