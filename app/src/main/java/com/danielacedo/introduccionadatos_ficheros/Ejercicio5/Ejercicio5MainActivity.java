@@ -1,5 +1,7 @@
 package com.danielacedo.introduccionadatos_ficheros.Ejercicio5;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -7,10 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.danielacedo.introduccionadatos_ficheros.Ejercicio7.Ejercicio7Activity;
 import com.danielacedo.introduccionadatos_ficheros.R;
+import com.danielacedo.introduccionadatos_ficheros.RestClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.squareup.picasso.Picasso;
@@ -90,7 +95,7 @@ public class Ejercicio5MainActivity extends AppCompatActivity {
 
     private void setImage(){
         try{
-            Picasso.with(Ejercicio5MainActivity.this).load(gallery[currentImage]).into(imv_image);
+            Picasso.with(Ejercicio5MainActivity.this).load(gallery[currentImage]).error(R.drawable.error).placeholder(R.drawable.progressanimation).into(imv_image);
             refreshGalleryPositionText();
         }
         catch(IndexOutOfBoundsException ex){
@@ -102,27 +107,38 @@ public class Ejercicio5MainActivity extends AppCompatActivity {
     }
 
     private void download(){
-        AsyncHttpClient client = new AsyncHttpClient();
-
         if(!edt_FilePath.getText().toString().startsWith("http://")){
             String text = "http://"+edt_FilePath.getText().toString();
             edt_FilePath.setText(text);
         }
 
-        client.get(edt_FilePath.getText().toString(), new FileAsyncHttpResponseHandler(Ejercicio5MainActivity.this) {
+        final ProgressDialog progress = new ProgressDialog(Ejercicio5MainActivity.this);
+
+        RestClient.get(edt_FilePath.getText().toString(), new FileAsyncHttpResponseHandler(Ejercicio5MainActivity.this) {
             private List<String> urls = new ArrayList<String>();
 
             @Override
             public void onStart() {
-
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setMessage("Conectando . . .");
+                progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        RestClient.cancelRequests(getApplicationContext(), true);
+                    }
+                });
+                progress.show();
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                progress.dismiss();
                 disableGallery();
                 Toast.makeText(Ejercicio5MainActivity.this, "Fallo en la conexión", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, File response){
+                //Read every line and add each link to the list
+                progress.dismiss();
+
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(file));
                     String line;
@@ -151,6 +167,7 @@ public class Ejercicio5MainActivity extends AppCompatActivity {
                     Toast.makeText(Ejercicio5MainActivity.this, "Fichero mal formateado", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
     }
 

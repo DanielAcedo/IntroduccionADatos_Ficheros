@@ -31,7 +31,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class Ejercicio7Activity extends AppCompatActivity{
 
-    public final static String WEB = "http://192.168.1.132/datos/upload.php";
+    public final static String WEB = "http://192.168.1.132/datos/upload.php"; //PHP file that handles the uploading
 
     public static final int REQUEST_OPENFILE = 1;
 
