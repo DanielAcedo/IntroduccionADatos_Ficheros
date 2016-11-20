@@ -10,6 +10,7 @@ import com.danielacedo.introduccionadatos_ficheros.Ejercicio2.Ejercicio2Activity
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio3.Ejercicio3Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio4.Ejercicio4Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio5.Ejercicio5MainActivity;
+import com.danielacedo.introduccionadatos_ficheros.Ejercicio6.Ejercicio6Activity;
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio7.Ejercicio7Activity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_Ej5:
                 intent = new Intent(MainActivity.this, Ejercicio5MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_Ej6:
+                intent = new Intent(MainActivity.this, Ejercicio6Activity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_Ej7:

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txv_FilePath"
-        android:text="@string/txv_FilePath" />
+        android:text="Ruta" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:id="@+id/btn_Download"
-            android:text="@string/btn_Download" />
+            android:text="Descargar" />
     </LinearLayout>
 
     <ImageView
@@ -56,14 +56,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/btn_galleryDown"
-            android:text="@string/btn_GalleryDown" />
+            android:text="Abajo" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/btn_galleryUp"
-            android:text="@string/btn_GalleryUp" />
+            android:text="Arriba" />
     </LinearLayout>
 
     <TextView

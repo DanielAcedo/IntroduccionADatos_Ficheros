@@ -26,27 +26,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Ejercicio5.Ejercicio5MainActivity"
+            android:name=".Ejercicio5.Ejercicio5MainActivity" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".Ejercicio1.Ejercicio1Activity"
+            android:name=".Ejercicio1.Ejercicio1Activity" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".Ejercicio1.AddContact"
+            android:name=".Ejercicio1.AddContact" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".Ejercicio2.Ejercicio2Activity"
+            android:name=".Ejercicio2.Ejercicio2Activity" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".Ejercicio2.AddAlarm"
+            android:name=".Ejercicio2.AddAlarm" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".Ejercicio7.Ejercicio7Activity"
+            android:name=".Ejercicio7.Ejercicio7Activity" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".Ejercicio4.Ejercicio4Activity"
+            android:name=".Ejercicio4.Ejercicio4Activity" android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".Ejercicio3.Ejercicio3Activity" android:windowSoftInputMode="stateHidden"></activity>
+
+        <activity android:name=".Ejercicio3.Ejercicio3Activity" android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".Ejercicio6.Ejercicio6Activity" android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>
