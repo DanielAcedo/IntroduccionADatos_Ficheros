@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ejercicio3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.danielacedo.introduccionadatos_ficheros.Ejercicio3.Ejercicio3Activity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dias del ciclo"
+            android:textSize="19sp"
+            android:id="@+id/txv_cycleTitle"/>
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@id/txv_cycleTitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/np_cycle" />
+
+        <DatePicker
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/txv_cycleTitle"
+            android:layout_alignTop="@id/np_cycle"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/dp_firstBlood"
+            android:firstDayOfWeek="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txv_cycleTitle"
+            android:layout_toEndOf="@id/txv_cycleTitle"
+            android:layout_alignStart="@id/dp_firstBlood"
+            android:text="Primer sangrado"
+            android:textSize="19sp"
+            android:layout_marginLeft="55dp"
+            android:id="@+id/txv_firstBloodTitle"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorAccent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dp_firstBlood"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:text="Calcular"
+        android:id="@+id/btn_Calculate"/>
+
+
+
+</LinearLayout>

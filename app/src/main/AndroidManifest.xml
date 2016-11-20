@@ -4,11 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
-    <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,20 +16,37 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Ejercicio5.Ejercicio5MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Ejercicio1.Ejercicio1Activity" android:screenOrientation="portrait"/>
-        <activity android:name=".Ejercicio1.AddContact" android:screenOrientation="portrait"/>
-        <activity android:name=".Ejercicio2.Ejercicio2Activity" android:screenOrientation="portrait"/>
-        <activity android:name=".Ejercicio2.AddAlarm" android:screenOrientation="portrait"/>
-        <activity android:name=".Ejercicio7.Ejercicio7Activity" android:screenOrientation="portrait"/>
-        <activity android:name=".Ejercicio4.Ejercicio4Activity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Ejercicio5.Ejercicio5MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ejercicio1.Ejercicio1Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ejercicio1.AddContact"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ejercicio2.Ejercicio2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ejercicio2.AddAlarm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ejercicio7.Ejercicio7Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Ejercicio4.Ejercicio4Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Ejercicio3.Ejercicio3Activity" android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
