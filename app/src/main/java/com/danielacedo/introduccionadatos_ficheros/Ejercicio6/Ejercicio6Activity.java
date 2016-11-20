@@ -172,7 +172,24 @@ public class Ejercicio6Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Toast.makeText(Ejercicio6Activity.this, "Error: "+responseString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Ejercicio6Activity.this, "Error al conectar con el servidor. Leyendo fichero local...", Toast.LENGTH_SHORT).show();
+
+                try{
+                    FileInputStream in = openFileInput(archivoDivisas);
+                    String json = "";
+                    int data;
+
+                    while((data=in.read())!= -1){
+                        json+=(char)data;
+                    }
+
+                    in.close();
+                    tratarJSON(new JSONObject(json));
+                }catch(IOException e){
+                    Toast.makeText(Ejercicio6Activity.this, "No hay datos anteriores. Intenta conectar al menos una vez con el servidor", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Toast.makeText(Ejercicio6Activity.this, "Error al leer el fichero local.", Toast.LENGTH_SHORT).show();
+                }
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
