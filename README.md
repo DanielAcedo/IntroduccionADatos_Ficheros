@@ -1,29 +1,24 @@
-# README #
+# Ejercicio de Ficheros (Tema 2) para la asignatura Acceso a Datos #
+### Por Daniel Acedo Calderón ###
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# Descripción de los ejercicios #
 
-### What is this repository for? ###
+## Ejercicio 1 ##
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
+## Ejercicio 2 ##
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
+## Ejercicio 3 ##
 
-* Writing tests
-* Code review
-* Other guidelines
 
-### Who do I talk to? ###
+## Ejercicio 4 ##
 
-* Repo owner or admin
-* Other community or team contact
+
+## Ejercicio 5 ##
+
+
+## Ejercicio 6 ##
+
+
+## Ejercicio 7 ##
