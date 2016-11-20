@@ -2,10 +2,13 @@ package com.danielacedo.introduccionadatos_ficheros.Ejercicio7;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -65,65 +68,80 @@ public class Ejercicio7Activity extends AppCompatActivity{
         txv_Information = (TextView)findViewById(R.id.txv_info);
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+
     private void subida() {
-        //Permission check for Android6 onwards
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        if(isNetworkAvailable()){
+            //Permission check for Android6 onwards
+            int permissionCheck = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+
+            String fichero = txv_FileName.getText().toString();
+            final ProgressDialog progreso = new ProgressDialog(Ejercicio7Activity.this);
+            File myFile;
+            Boolean existe = true;
+            //myFile = new File(Environment.getExternalStorageDirectory(), fichero); //External
+            myFile = new File(fichero);
+            RequestParams params = new RequestParams();
+            params.put("secretKey","123");
+
+            try {
+                //If the file doesn't exist, create one
+                if(!myFile.exists())
+                    myFile.createNewFile();
+                params.put("fileToUpload", myFile);
+            } catch (IOException e) {
+                existe = false;
+                txv_Information.setText("Error en el fichero: " + e.getMessage());
+                //Toast.makeText(this, "Error en el fichero: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            if (existe)
+                RestClient.post(WEB, params, new TextHttpResponseHandler() { //Post call
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                        progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progreso.setMessage("Conectando . . .");
+                        //progreso.setCancelable(false);
+                        progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            public void onCancel(DialogInterface dialog) {
+                                RestClient.cancelRequests(getApplicationContext(), true);
+                            }
+                        });
+                        progreso.show();
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String response) {
+                        // called when response HTTP status is "200 OK"
+                        progreso.dismiss();
+                        txv_Information.setText(response);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        txv_Information.setText(response);
+                        progreso.dismiss();
+                    }
+                });
+        }else{
+            txv_Information.setText("No hay conexión");
         }
 
-        String fichero = txv_FileName.getText().toString();
-        final ProgressDialog progreso = new ProgressDialog(Ejercicio7Activity.this);
-        File myFile;
-        Boolean existe = true;
-        //myFile = new File(Environment.getExternalStorageDirectory(), fichero); //External
-        myFile = new File(fichero);
-        RequestParams params = new RequestParams();
-        params.put("secretKey","123");
-
-        try {
-            //If the file doesn't exist, create one
-            if(!myFile.exists())
-                myFile.createNewFile();
-            params.put("fileToUpload", myFile);
-        } catch (IOException e) {
-            existe = false;
-            txv_Information.setText("Error en el fichero: " + e.getMessage());
-            //Toast.makeText(this, "Error en el fichero: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        if (existe)
-            RestClient.post(WEB, params, new TextHttpResponseHandler() { //Post call
-                @Override
-                public void onStart() {
-                    // called before request is started
-                    progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progreso.setMessage("Conectando . . .");
-                    //progreso.setCancelable(false);
-                    progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        public void onCancel(DialogInterface dialog) {
-                            RestClient.cancelRequests(getApplicationContext(), true);
-                        }
-                    });
-                    progreso.show();
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, String response) {
-                    // called when response HTTP status is "200 OK"
-                    progreso.dismiss();
-                    txv_Information.setText(response);
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
-                    // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                    txv_Information.setText(response);
-                    progreso.dismiss();
-                }
-            });
     }
 
     private void openFileManager(){
