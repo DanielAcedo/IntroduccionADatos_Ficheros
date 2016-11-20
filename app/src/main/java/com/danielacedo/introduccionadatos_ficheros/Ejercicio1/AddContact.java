@@ -3,6 +3,7 @@ package com.danielacedo.introduccionadatos_ficheros.Ejercicio1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +41,7 @@ public class AddContact extends AppCompatActivity {
                 String telephone = edt_ContactTelephone.getText().toString();
                 String email = edt_ContactEmail.getText().toString();
 
-                if(checkFields(name, telephone)){
+                if(checkFields(name, telephone, email)){
                     List<Contact> contacts = ContactFile.getContacts(AddContact.this);
                     int newId;
                     //Get last id from list
@@ -63,7 +64,7 @@ public class AddContact extends AppCompatActivity {
         });
     }
 
-    private boolean checkFields(String name, String telephone){
+    private boolean checkFields(String name, String telephone, String email){
         boolean result = true;
 
         if(name.isEmpty()){
@@ -78,6 +79,11 @@ public class AddContact extends AppCompatActivity {
 
         if(!Pattern.matches("^([0-9]| )*", telephone)){
             edt_ContactTelephone.setError("Formato de teléfono no correcto");
+            result = false;
+        }
+
+        if(!email.isEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            edt_ContactEmail.setError("Formato de email no correcto");
             result = false;
         }
 

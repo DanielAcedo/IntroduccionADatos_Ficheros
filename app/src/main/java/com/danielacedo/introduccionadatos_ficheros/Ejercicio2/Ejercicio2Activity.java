@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -19,6 +20,7 @@ import com.danielacedo.introduccionadatos_ficheros.Ejercicio2.adapter.AlarmAdapt
 import com.danielacedo.introduccionadatos_ficheros.Ejercicio2.interfaces.AlarmCounterCallBack;
 import com.danielacedo.introduccionadatos_ficheros.R;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Ejercicio2Activity extends AppCompatActivity {
@@ -95,6 +97,7 @@ public class Ejercicio2Activity extends AppCompatActivity {
                 @Override
                 public void onAlarmFinish(Alarm finishedAlarm) {
                     Toast.makeText(Ejercicio2Activity.this, finishedAlarm.getFinishMessage(), Toast.LENGTH_SHORT).show();
+                    playSound(R.raw.imgburn);
                 }
 
                 @Override
@@ -108,6 +111,11 @@ public class Ejercicio2Activity extends AppCompatActivity {
         }
     }
 
+
+    private void playSound(int soundResource) {
+        MediaPlayer mp = MediaPlayer.create(Ejercicio2Activity.this, soundResource);
+        mp.start();
+    }
 
     /**
      * Adds a new alawm to the adapter
