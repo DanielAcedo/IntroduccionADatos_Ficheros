@@ -1,6 +1,8 @@
 package com.danielacedo.introduccionadatos_ficheros.Ejercicio6;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -141,60 +143,92 @@ public class Ejercicio6Activity extends AppCompatActivity {
         }
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+
     /**
      * Makes a GET Call to the api to obtain rates data
      */
     private void actualizarDivisas(){
         btn_ActualizarRatio.setText(R.string.btn_InfoDivisa_text_conectando);
 
-        RestClient.get(urlApiRatio, new JsonHttpResponseHandler(){  //Now using AsyncHTTPClient
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    if(spn_SelectCountry!=null){
-                        ultimaPosicionDivisa = spn_SelectCountry.getSelectedItemPosition();
+        if(isNetworkAvailable()){
+            RestClient.get(urlApiRatio, new JsonHttpResponseHandler(){  //Now using AsyncHTTPClient
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        if(spn_SelectCountry!=null){
+                            ultimaPosicionDivisa = spn_SelectCountry.getSelectedItemPosition();
+                        }
+
+                        tratarJSON(response);
+
+                        if(spn_SelectCountry!=null){
+                            spn_SelectCountry.setSelection(ultimaPosicionDivisa);
+                        }
+
+                        txv_InfoDivisa.setText(getResources().getString(R.string.txv_InfoDivisa_text_correcto)+String.valueOf(conversionActual.getRatio())+" "+conversionActual.getCodPais()+"/EUR");
+
+                    } catch (JSONException e) {
+                        Toast.makeText(Ejercicio6Activity.this, "Error JSON: "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
-                    tratarJSON(response);
+                    btn_ActualizarRatio.setText(R.string.btn_ActualizarRatio_text);
+                    super.onSuccess(statusCode, headers, response);
+                }
 
-                    if(spn_SelectCountry!=null){
-                       spn_SelectCountry.setSelection(ultimaPosicionDivisa);
-                    }
-
-                    txv_InfoDivisa.setText(getResources().getString(R.string.txv_InfoDivisa_text_correcto)+String.valueOf(conversionActual.getRatio())+" "+conversionActual.getCodPais()+"/EUR");
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Toast.makeText(Ejercicio6Activity.this, "Error al conectar con el servidor. Leyendo fichero local...", Toast.LENGTH_SHORT).show();
                     btn_ActualizarRatio.setText(R.string.btn_ActualizarRatio_text);
 
-                } catch (JSONException e) {
-                    Toast.makeText(Ejercicio6Activity.this, "Error JSON: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                super.onSuccess(statusCode, headers, response);
-            }
+                    try{
+                        FileInputStream in = openFileInput(archivoDivisas);
+                        String json = "";
+                        int data;
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Toast.makeText(Ejercicio6Activity.this, "Error al conectar con el servidor. Leyendo fichero local...", Toast.LENGTH_SHORT).show();
+                        while((data=in.read())!= -1){
+                            json+=(char)data;
+                        }
 
-                try{
-                    FileInputStream in = openFileInput(archivoDivisas);
-                    String json = "";
-                    int data;
-
-                    while((data=in.read())!= -1){
-                        json+=(char)data;
+                        in.close();
+                        tratarJSON(new JSONObject(json));
+                    }catch(IOException e){
+                        Toast.makeText(Ejercicio6Activity.this, "No hay datos anteriores. Intenta conectar al menos una vez con el servidor", Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        Toast.makeText(Ejercicio6Activity.this, "Error al leer el fichero local.", Toast.LENGTH_SHORT).show();
                     }
-
-                    in.close();
-                    tratarJSON(new JSONObject(json));
-                }catch(IOException e){
-                    Toast.makeText(Ejercicio6Activity.this, "No hay datos anteriores. Intenta conectar al menos una vez con el servidor", Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    Toast.makeText(Ejercicio6Activity.this, "Error al leer el fichero local.", Toast.LENGTH_SHORT).show();
+                    super.onFailure(statusCode, headers, responseString, throwable);
                 }
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
+            });
+        }else{
+            Toast.makeText(Ejercicio6Activity.this, "No hay conexión a internet...", Toast.LENGTH_SHORT).show();
+            btn_ActualizarRatio.setText(R.string.btn_ActualizarRatio_text);
 
-        //new Ejercicio6Activity.GetHttpResponse().execute(urlApiRatio);
+            try{
+                FileInputStream in = openFileInput(archivoDivisas);
+                String json = "";
+                int data;
+
+                while((data=in.read())!= -1){
+                    json+=(char)data;
+                }
+
+                in.close();
+                tratarJSON(new JSONObject(json));
+            }catch(IOException e){
+                Toast.makeText(Ejercicio6Activity.this, "No hay datos anteriores. Intenta conectar al menos una vez con el servidor", Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                Toast.makeText(Ejercicio6Activity.this, "Error al leer el fichero local.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     /**
